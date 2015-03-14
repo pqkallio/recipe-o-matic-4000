@@ -1,16 +1,13 @@
 language: ruby
-
 rvm:
- - 2.2.0
-
+- 2.2.0
 script:
- - bundle exec rake db:migrate --trace
- - RAILS_ENV=test bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
-
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
 deploy:
   provider: heroku
   api_key:
-    secure: DLp1GmTBsF1x4HR7eLCTTx+bLUSY1tbvDsZoAbGbyIIWtj8ZbnXtZw9MUnoXMkZ+biq$
+    secure: YC8Ut9jbvAtkGtoswyq/w1OIldcyZJHHms7Q0g2CEJV8fiAYCG/EUUqSiMb1aIssJnd2UztdKfCq1otdB11R651JbNf4jLDuSVGJq9pqfnXy2Ts8xuA6imnqu91HU/5srbwONx9l3+S0Pfhn605Cp368HPayF8t21SjKTMFrhoU=
   app: recipe-o-matic-4000
-  run: "rake db:migrate"
+  run: rake db:migrate
