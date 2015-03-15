@@ -14,6 +14,12 @@ group :production do
    gem 'rails_12factor'
 end
 
+gem 'bootstrap-sass'
+group :development do
+  gem 'rails_layout'
+  gem 'rack-mini-profiler'
+end
+
 ruby '2.2.0'
 
 # Use SCSS for stylesheets

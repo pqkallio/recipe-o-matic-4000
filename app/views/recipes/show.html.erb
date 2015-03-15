@@ -15,10 +15,17 @@
   <%= @recipe.cooking %>
 </p>
 
+<ul>
+  <% @recipe.ingredients.each do |ingredient| %>
+    <li><%= ingredient.material.name %>   <%= ingredient.amount %> <%= ingredient.unit.name %> </li>
+  <% end %>
+</ul>
+
 <p>
   <strong>Description:</strong>
   <%= @recipe.description %>
 </p>
+
 
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
 <%= link_to 'Back', recipes_path %>
