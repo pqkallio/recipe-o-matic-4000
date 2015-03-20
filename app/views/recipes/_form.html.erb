@@ -1,33 +1,46 @@
-<%= form_for(@recipe) do |f| %>
-  <% if @recipe.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+<%= form_for(@recipe, method: :post) do |f| %>
 
-      <ul>
-      <% @recipe.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <table>
+    <tr>
+      <td><%= f.label(:name, "Name") %></td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label(:cooking, "Cooking") %></td>
+      <td><%= f.text_field :cooking %></td>
+    </tr>
+    <tr>
+      <td><%= f.label(:description, "Description") %></td>
+      <td><%= f.text_field :description %></td>
+    </tr>
+  </table>
 
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
+  <br/>
+  <div>
+    <table>
+      <tr>
+        <th>Ingredient</th>
+        <th>Amount</th>
+        <th>Unit</th>
+      </tr>
+        <%= f.fields_for :ingredients do |u| %>
+          <tr>
+            <%= u.fields_for :i1 do |o| %>
+              <td><%= o.text_field :material %></td>
+              <td><%= o.text_field :amount %></td>
+              <td><%= o.text_field :unit %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <%= u.fields_for :i2 do |o| %>
+                <td><%= o.text_field :material %></td>
+                <td><%= o.text_field :amount %></td>
+                <td><%= o.text_field :unit %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
   </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :cooking %><br>
-    <%= f.text_field :cooking %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <br/>
+  <%= f.submit "Create!" %>
 <% end %>
