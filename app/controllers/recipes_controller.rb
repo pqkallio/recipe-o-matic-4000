@@ -25,9 +25,12 @@ class RecipesController < ApplicationController
   # POST /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
-    byebug
+    @ingredients = params[:recipe][:ingredients]
+
     respond_to do |format|
       if @recipe.save
+        add_ingredients
+        byebug
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
       else
@@ -58,6 +61,30 @@ class RecipesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def add_ingredients
+    @ingredients.each do |ing, values|
+      ingredient = Ingredient.new
+      material = Material.find_by(name: values["material"])
+
+      if material.nil?
+        material = Material.new(name: values["material"])
+      end
+
+      ingredient.material = material
+      ingredient.amount = values["amount"]
+      ingredient.recipe = @recipe
+
+      unit = Unit.find_by(name: values["unit"])
+
+      if unit.nil?
+        unit = Unit.new(name: values["unit"])
+      end
+
+      ingredient.unit = unit
+      ingredient.save
     end
   end
 
