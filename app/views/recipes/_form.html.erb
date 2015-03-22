@@ -1,3 +1,7 @@
+<script>
+  var counter = 1;
+</script>
+
 <%= form_for(@recipe, method: :post) do |f| %>
 
   <table>
@@ -17,29 +21,23 @@
 
   <br/>
   <div>
-    <table>
+    <table id="ingredients">
       <tr>
         <th>Ingredient</th>
         <th>Amount</th>
         <th>Unit</th>
       </tr>
-        <%= f.fields_for :ingredients do |u| %>
-          <tr>
-            <%= u.fields_for :i1 do |o| %>
-              <td><%= o.text_field :material %></td>
-              <td><%= o.text_field :amount %></td>
-              <td><%= o.text_field :unit %></td>
-            <% end %>
-          </tr>
-          <tr>
-            <%= u.fields_for :i2 do |o| %>
-                <td><%= o.text_field :material %></td>
-                <td><%= o.text_field :amount %></td>
-                <td><%= o.text_field :unit %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      </table>
+      <%= f.fields_for :ingredients do |u| %>
+        <tr>
+          <%= u.fields_for :i1 do |o| %>
+            <td><%= o.text_field :material %></td>
+            <td><%= o.text_field :amount %></td>
+            <td><%= o.text_field :unit %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+    <button type="button" onclick="addIngredient()">Click!</button>
   </div>
   <br/>
   <%= f.submit "Create!" %>

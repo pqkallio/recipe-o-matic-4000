@@ -10,6 +10,7 @@ class MaterialsController < ApplicationController
   # GET /materials/1
   # GET /materials/1.json
   def show
+    @recipes = Recipe.containing_material(@material)
   end
 
   # GET /materials/new
