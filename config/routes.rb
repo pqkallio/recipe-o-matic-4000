@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   resources :recipes
 
-  resources :users
+  resources :users do
+    get 'recipes', on: :member
+  end
 
   resources :materials
 
@@ -19,7 +21,10 @@ Rails.application.routes.draw do
 
   get 'signin', to:'sessions#new'
 
-  delete 'signout', to: 'sessions#destroy'
+  get 'signout', to:'sessions#destroy'
+
+  # miksi ei toimi????
+  delete 'signout', to:'sessions#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -26,11 +26,13 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
     @ingredients = params[:recipe][:ingredients]
+    @recipe.user = current_user
+    current_user.recipes << @recipe
 
     respond_to do |format|
       if @recipe.save
         add_ingredients
-        byebug
+        current_user.save
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
       else
@@ -91,7 +93,7 @@ class RecipesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recipe
-      @recipe = Recipe.includes(:ingredients, :units, :materials).find(params[:id])
+      @recipe = Recipe.includes(:ingredients, :units, :materials, :user).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

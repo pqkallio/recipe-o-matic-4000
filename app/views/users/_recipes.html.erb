@@ -1,0 +1,9 @@
+<% if recipes.empty? %>
+    <p>None yet!</p>
+<% else %>
+    <ul>
+      <% recipes.each do |r| %>
+          <li><%= link_to r.name, r %></li>
+      <% end %>
+    </ul>
+<% end %>

@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>User:</strong>
-  <%= @recipe.user_id %>
+  <strong>By:</strong>
+  <%= link_to @recipe.user.username, @recipe.user %>
 </p>
 
 <p>
