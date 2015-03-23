@@ -28,7 +28,7 @@ class RecipesController < ApplicationController
     @ingredients = params[:recipe][:ingredients]
     @recipe.user = current_user
     current_user.recipes << @recipe
-
+    byebug
     respond_to do |format|
       if @recipe.save
         add_ingredients
@@ -72,12 +72,19 @@ class RecipesController < ApplicationController
       material = Material.find_by(name: values["material"])
 
       if material.nil?
-        material = Material.new(name: values["material"])
+        material = Material.create(name: values["material"])
       end
 
       ingredient.material = material
       ingredient.amount = values["amount"]
       ingredient.recipe = @recipe
+
+      if ing.to_s == "side_dish"
+        ingredient.side_dish = true
+        material.side_dish = true
+      else
+        ingredient.side_dish = false
+      end
 
       unit = Unit.find_by(name: values["unit"])
 
@@ -87,6 +94,7 @@ class RecipesController < ApplicationController
 
       ingredient.unit = unit
       ingredient.save
+      material.save
     end
   end
 

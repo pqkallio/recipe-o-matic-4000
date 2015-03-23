@@ -15,11 +15,13 @@
     </tr>
     <tr>
       <td><%= f.label(:description, "Description") %></td>
-      <td><%= f.text_field :description %></td>
+      <td><%= f.text_area :description %></td>
     </tr>
   </table>
 
   <br/>
+
+  <h3>Ingredients</h3>
   <div>
     <table id="ingredients">
       <tr>
@@ -37,8 +39,22 @@
         </tr>
       <% end %>
     </table>
-    <button type="button" onclick="addIngredient()">Click!</button>
+    <button type="button" onclick="addIngredient()">More Ingredients!</button>
   </div>
+  <h5>Side dish</h5>
+    <div>
+      <table id="side_dish">
+        <%= f.fields_for :ingredients do |u| %>
+          <tr>
+            <%= u.fields_for :side_dish do |o| %>
+                <td><%= o.text_field :material %></td>
+                <td><%= o.text_field :amount %></td>
+                <td><%= o.text_field :unit %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    </div>
   <br/>
   <%= f.submit "Create!" %>
 <% end %>

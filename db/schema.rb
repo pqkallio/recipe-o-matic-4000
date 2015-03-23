@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150313143359) do
+ActiveRecord::Schema.define(version: 20150323180725) do
 
   create_table "favorite_recipes", force: :cascade do |t|
     t.integer  "user_id"
@@ -27,12 +27,14 @@ ActiveRecord::Schema.define(version: 20150313143359) do
     t.integer  "unit_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.boolean  "side_dish"
   end
 
   create_table "materials", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "side_dish"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -40,8 +42,9 @@ ActiveRecord::Schema.define(version: 20150313143359) do
     t.string   "name"
     t.string   "cooking"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.text     "instructions"
   end
 
   create_table "units", force: :cascade do |t|
