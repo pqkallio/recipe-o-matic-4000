@@ -27,3 +27,25 @@ function addIngredient() {
 
     document.getElementById("ingredients").appendChild(row);
 }
+
+function changePortionAmount(amount) {
+    var portions = Number(document.getElementById("portions").textContent);
+
+    if (amount != 0) {
+        if (portions + amount <= 1000 && portions + amount > 0) {
+            changeIngredientAmounts(portions, amount);
+            portions += amount;
+            document.getElementById("portions").innerHTML = portions;
+        }
+    }
+}
+
+function changeIngredientAmounts(portions, amount) {
+    var ingredientAmounts = document.getElementsByName("ingredient_amount");
+
+    for (var i = 0; i < ingredientAmounts.length; i++) {
+        var ingredientAmount = Number(ingredientAmounts[i].textContent);
+        var newAmount = ingredientAmount / portions * (portions + amount);
+        ingredientAmounts[i].innerHTML = newAmount;
+    }
+}

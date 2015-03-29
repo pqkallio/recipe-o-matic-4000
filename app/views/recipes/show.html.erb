@@ -1,25 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>By:</strong>
-  <%= link_to @recipe.user.username, @recipe.user %>
-</p>
+<h1><%= @recipe.name %></h1>
+<h3>By: <%= link_to @recipe.user.username, @recipe.user %></h3>
+<h4>Portions:
+  <span id="portions"><%= @recipe.portions %></span>
+  <button type="button" onclick="changePortionAmount(-1)" class="btn btn-default" style="border-radius: 100%">-</button>
+  <button type="button" onclick="changePortionAmount(1)" class="btn btn-default" style="border-radius: 100%">+</button>
+</h4>
+<h4>Cooking: <%= @recipe.cooking %></h4>
 
-<p>
-  <strong>Name:</strong>
-  <%= @recipe.name %>
-</p>
-
-<p>
-  <strong>Cooking:</strong>
-  <%= @recipe.cooking %>
-</p>
-
-<ul>
+<h4>Ingredients</h4>
+<table>
   <% @recipe.ingredients.each do |ingredient| %>
-    <li><%= ingredient.material.name %>   <%= ingredient.amount %> <%= ingredient.unit.name %> </li>
+    <tr>
+      <td><%= ingredient.material.name %></td>
+      <td name="ingredient_amount"><%= ingredient.amount %></td>
+      <td><%= ingredient.unit.name %></td>
+    </tr>
   <% end %>
-</ul>
+</table>
 
 <p>
   <strong>Description:</strong>
