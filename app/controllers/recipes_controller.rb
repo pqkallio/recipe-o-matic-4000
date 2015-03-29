@@ -28,7 +28,6 @@ class RecipesController < ApplicationController
     @ingredients = params[:recipe][:ingredients]
     @recipe.user = current_user
     current_user.recipes << @recipe
-    byebug
     respond_to do |format|
       if @recipe.save
         add_ingredients
@@ -106,6 +105,6 @@ class RecipesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:user_id, :name, :cooking, :description)
+      params.require(:recipe).permit(:user_id, :name, :cooking, :description, :instructions, :portions)
     end
 end

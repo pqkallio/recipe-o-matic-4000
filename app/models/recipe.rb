@@ -4,6 +4,11 @@ class Recipe < ActiveRecord::Base
   has_many :units, through: :ingredients
   belongs_to :user
 
+  validates :name, presence: true
+  validates :instructions, presence: true
+  validates :cooking, presence: true
+  validates :portions, numericality: true, presence: true
+
   def self.containing_material(material)
     recipes = Array.new
     ingredients = Ingredient.where(material: material)

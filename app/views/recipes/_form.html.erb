@@ -1,3 +1,5 @@
+<meta charset="UTF-8">
+
 <script>
   var counter = 1;
 </script>
@@ -7,15 +9,20 @@
   <table>
     <tr>
       <td><%= f.label(:name, "Name") %></td>
-      <td><%= f.text_field :name %></td>
+      <td><%= f.text_field :name, placeholder: "The name of the recipe" %></td>
     </tr>
     <tr>
       <td><%= f.label(:cooking, "Cooking") %></td>
-      <td><%= f.text_field :cooking %></td>
+      <td><%= f.text_field :cooking, placeholder: "The cooking instructions" %></td>
+      <td>(Hint: use <em>%o</em> for &#x00B0 sign)</td>
     </tr>
     <tr>
       <td><%= f.label(:description, "Description") %></td>
-      <td><%= f.text_area :description %></td>
+      <td><%= f.text_area :description, placeholder: "A nice little description of this recipe" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label(:portions, "Portions") %></td>
+      <td><%= f.number_field :portions, min: 1, max: 1000, value: 1 %></td>
     </tr>
   </table>
 
@@ -32,9 +39,9 @@
       <%= f.fields_for :ingredients do |u| %>
         <tr>
           <%= u.fields_for :i1 do |o| %>
-            <td><%= o.text_field :material %></td>
-            <td><%= o.text_field :amount %></td>
-            <td><%= o.text_field :unit %></td>
+            <td><%= o.text_field :material, placeholder: "The name of the ingredient" %></td>
+            <td><%= o.number_field :amount, step: 0.1, min: 0.1, max: 1000, value: 1 %></td>
+            <td><%= o.text_field :unit, placeholder: "The unit of the amount" %></td>
           <% end %>
         </tr>
       <% end %>
@@ -42,19 +49,24 @@
     <button type="button" onclick="addIngredient()">More Ingredients!</button>
   </div>
   <h5>Side dish</h5>
-    <div>
-      <table id="side_dish">
-        <%= f.fields_for :ingredients do |u| %>
-          <tr>
-            <%= u.fields_for :side_dish do |o| %>
-                <td><%= o.text_field :material %></td>
-                <td><%= o.text_field :amount %></td>
-                <td><%= o.text_field :unit %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      </table>
-    </div>
+  <div>
+    <table id="side_dish">
+      <%= f.fields_for :ingredients do |u| %>
+        <tr>
+          <%= u.fields_for :side_dish do |o| %>
+              <td><%= o.text_field :material %></td>
+              <td><%= o.number_field :amount, step: 0.1, min: 0.1, max: 1000 %></td>
+              <td><%= o.text_field :unit %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <br/>
+  <div>
+  <h3>Instructions:</h3>
+  <%= f.text_area :instructions, placeholder: "The how-to-make section" %>
+  </div>
   <br/>
   <%= f.submit "Create!" %>
 <% end %>

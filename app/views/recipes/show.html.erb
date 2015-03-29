@@ -10,11 +10,17 @@
 <h4>Cooking: <%= @recipe.cooking %></h4>
 
 <h4>Ingredients</h4>
-<table>
+<table class="table table-hover">
   <% @recipe.ingredients.each do |ingredient| %>
     <tr>
       <td><%= ingredient.material.name %></td>
-      <td name="ingredient_amount"><%= ingredient.amount %></td>
+      <td name="ingredient_amount">
+        <% if ingredient.amount.round(2) == ingredient.amount.round() %>
+          <%= ingredient.amount.round() %>
+        <% else %>
+          <%= ingredient.amount.round(2) %>
+        <% end %>
+      </td>
       <td><%= ingredient.unit.name %></td>
     </tr>
   <% end %>
