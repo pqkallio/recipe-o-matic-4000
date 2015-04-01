@@ -7,7 +7,7 @@ class Recipe < ActiveRecord::Base
   validates :name, presence: true
   validates :instructions, presence: true
   validates :cooking, presence: true
-  validates :portions, numericality: true, presence: true
+  validates :portions, numericality: { only_integer: true, greater_than: 0, less_than: 1001 }, presence: true
 
   def self.containing_material(material)
     recipes = Array.new

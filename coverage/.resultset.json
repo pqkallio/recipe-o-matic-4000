@@ -12,12 +12,17 @@
         1,
         null,
         1,
-        10,
-        8,
+        19,
+        17,
         0,
         null,
         null,
         null,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/models/unit.rb": [
+        1,
+        1,
         null
       ],
       "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/models/material.rb": [
@@ -87,13 +92,8 @@
         0,
         null,
         null
-      ],
-      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/models/unit.rb": [
-        1,
-        1,
-        null
       ]
     },
-    "timestamp": 1427896624
+    "timestamp": 1427914800
   }
 }

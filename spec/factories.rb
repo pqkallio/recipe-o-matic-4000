@@ -13,8 +13,24 @@ FactoryGirl.define do
     name "pcs"
   end
 
+  factory :unit2, class: Unit do
+    name "ltrs"
+  end
+
+  factory :unit3, class: Unit do
+    name "sacks"
+  end
+
   factory :material, class: Material do
     name "banana"
+  end
+
+  factory :material2, class: Material do
+    name "flour"
+  end
+
+  factory :material3, class: Material do
+    name "salt"
   end
 
   factory :recipe do
