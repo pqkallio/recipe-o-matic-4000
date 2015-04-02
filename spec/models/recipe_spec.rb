@@ -54,13 +54,24 @@ RSpec.describe Recipe, :type => :model do
     expect(recipe.ingredients.count).to eq(1)
   end
 
-  it "with 3 ingredients has 3 ingredients" do
-    recipe = FactoryGirl.create(:recipe)
-    FactoryGirl.create(:ingredient, recipe: recipe)
-    FactoryGirl.create(:ingredient, recipe: recipe, material: FactoryGirl.create(:material2), unit: FactoryGirl.create(:unit2))
-    FactoryGirl.create(:ingredient, recipe: recipe, material: FactoryGirl.create(:material3), unit: FactoryGirl.create(:unit3))
-    recipe.save
+  describe "with 3 ingredients" do
+    before :each do
+      @recipe = FactoryGirl.create(:recipe)
+      FactoryGirl.create(:ingredient, recipe: @recipe)
+      FactoryGirl.create(:ingredient, recipe: @recipe, material: FactoryGirl.create(:material2), unit: FactoryGirl.create(:unit2))
+      FactoryGirl.create(:ingredient, recipe: @recipe, material: FactoryGirl.create(:material3), unit: FactoryGirl.create(:unit3))
+      @recipe.save
+    end
 
-    expect(recipe.ingredients.count).to eq(3)
+    it "with 3 ingredients has 3 ingredients" do
+      expect(@recipe.ingredients.count).to eq(3)
+    end
+
+    it "with an ingredient the recipe can be found with containing_material method" do
+      material = @recipe.ingredients.first.material
+      recipes = Recipe.containing_material(material)
+
+      expect(recipes.include?(@recipe)).to eq(true)
+    end
   end
 end

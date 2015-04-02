@@ -1,6 +1,12 @@
-<p id="notice"><%= notice %></p>
-
-<h1><%= @recipe.name %></h1>
+<h1><span><%= @recipe.name %></span>
+  <% unless current_user.nil? %>
+    <%= form_tag(favorite_recipes_path, method: :post) do %>
+      <%= hidden_field_tag(:user_id, "#{current_user.id}") %>
+      <%= hidden_field_tag(:recipe_id, "#{@recipe.id}") %>
+      <%= submit_tag "Add to favorites", class: "btn btn-success" %>
+    <% end %>
+  <% end %>
+</h1>
 <h3>By: <%= link_to @recipe.user.username, @recipe.user %></h3>
 <h4>Portions:
   <span id="portions"><%= @recipe.portions %></span>

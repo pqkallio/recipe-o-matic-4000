@@ -24,7 +24,10 @@ class FavoriteRecipesController < ApplicationController
   # POST /favorite_recipes
   # POST /favorite_recipes.json
   def create
-    @favorite_recipe = FavoriteRecipe.new(favorite_recipe_params)
+    @favorite_recipe = FavoriteRecipe.new
+    @favorite_recipe.user_id = params[:user_id]
+    @favorite_recipe.recipe_id = params[:recipe_id]
+    byebug
 
     respond_to do |format|
       if @favorite_recipe.save
