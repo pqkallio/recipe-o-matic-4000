@@ -10,7 +10,9 @@ class RecipesController < ApplicationController
   # GET /recipes/1
   # GET /recipes/1.json
   def show
-    @favorite_recipe = FavoriteRecipe.new
+    unless current_user.nil?
+      @favorite_recipe = FavoriteRecipe.find_by(user_id: current_user.id, recipe_id: @recipe.id)
+    end
   end
 
   # GET /recipes/new

@@ -1,9 +1,14 @@
 <h1><span><%= @recipe.name %></span>
   <% unless current_user.nil? %>
-    <%= form_tag(favorite_recipes_path, method: :post) do %>
-      <%= hidden_field_tag(:user_id, "#{current_user.id}") %>
-      <%= hidden_field_tag(:recipe_id, "#{@recipe.id}") %>
-      <%= submit_tag "Add to favorites", class: "btn btn-success" %>
+    <% unless @favorite_recipe.nil? %>
+      <br/>
+      <%= link_to "Remove from favorites", @favorite_recipe, :method => :delete, class: "btn btn-default" %>
+    <% else %>
+      <%= form_tag(favorite_recipes_path, method: :post) do %>
+        <%= hidden_field_tag(:user_id, "#{current_user.id}") %>
+        <%= hidden_field_tag(:recipe_id, "#{@recipe.id}") %>
+        <%= submit_tag "Add to favorites", class: "btn btn-success" %>
+      <% end %>
     <% end %>
   <% end %>
 </h1>
@@ -13,6 +18,10 @@
   <button type="button" onclick="changePortionAmount(-1)" class="btn btn-default" style="border-radius: 100%">-</button>
   <button type="button" onclick="changePortionAmount(1)" class="btn btn-default" style="border-radius: 100%">+</button>
 </h4>
+
+<h4>Description:</h4>
+<p><%= @recipe.description %></p>
+
 <h4>Cooking: <%= @recipe.cooking %></h4>
 
 <h4>Ingredients</h4>
@@ -32,11 +41,10 @@
   <% end %>
 </table>
 
-<p>
-  <strong>Description:</strong>
-  <%= @recipe.description %>
-</p>
+<h4>Instructions:</h4>
+<div><p><%= @recipe.instructions %></p></div>
 
-
-<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
+<% if current_user and (current_user == @recipe.user or current_user.admin?) %>
+  <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
+<% end %>
 <%= link_to 'Back', recipes_path %>

@@ -27,11 +27,10 @@ class FavoriteRecipesController < ApplicationController
     @favorite_recipe = FavoriteRecipe.new
     @favorite_recipe.user_id = params[:user_id]
     @favorite_recipe.recipe_id = params[:recipe_id]
-    byebug
 
     respond_to do |format|
       if @favorite_recipe.save
-        format.html { redirect_to @favorite_recipe, notice: 'Favorite recipe was successfully created.' }
+        format.html { redirect_to :back }
         format.json { render :show, status: :created, location: @favorite_recipe }
       else
         format.html { render :new }
@@ -59,7 +58,7 @@ class FavoriteRecipesController < ApplicationController
   def destroy
     @favorite_recipe.destroy
     respond_to do |format|
-      format.html { redirect_to favorite_recipes_url, notice: 'Favorite recipe was successfully destroyed.' }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end
