@@ -1,5 +1,5 @@
 class MaterialsController < ApplicationController
-  before_action :set_material, only: [:show, :edit, :update, :destroy]
+  before_action :set_material_amount_and_recipe, only: [:show, :edit, :update, :destroy]
 
   # GET /materials
   # GET /materials.json

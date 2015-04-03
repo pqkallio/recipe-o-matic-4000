@@ -6,6 +6,7 @@ gem 'rails', '4.2.0'
 
 group :test do
   gem 'simplecov', require: false
+  gem 'codeclimate-test-reporter'
   gem 'factory_girl_rails'
 end
 

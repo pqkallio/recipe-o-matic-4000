@@ -71,39 +71,51 @@ class RecipesController < ApplicationController
   def add_ingredients
     @ingredients.each do |ing, values|
       ingredient = Ingredient.new
-      material = Material.find_by(name: values["material"])
 
-      if material.nil?
-        material = Material.create(name: values["material"])
-      end
+      set_material_amount_and_recipe(ingredient, values)
+      set_side_dishness(ingredient, ing.to_s)
+      set_unit(ingredient, values["unit"])
 
-      ingredient.material = material
-      ingredient.amount = values["amount"]
-      ingredient.recipe = @recipe
-
-      if ing.to_s == "side_dish"
-        ingredient.side_dish = true
-        material.side_dish = true
-      else
-        ingredient.side_dish = false
-      end
-
-      unit = Unit.find_by(name: values["unit"])
-
-      if unit.nil?
-        unit = Unit.new(name: values["unit"])
-      end
-
-      ingredient.unit = unit
       ingredient.save
-      material.save
     end
+  end
+
+  def set_material_amount_and_recipe(ingredient, values)
+    material = Material.find_by(name: values["material"])
+
+    if material.nil?
+      material = Material.create(name: values["material"])
+    end
+
+    ingredient.material = material
+    ingredient.amount = values["amount"]
+    ingredient.recipe = @recipe
+  end
+
+  def set_side_dishness(ingredient, value)
+    if value == "side_dish"
+      ingredient.side_dish = true
+      ingredient.material.side_dish = true
+      ingredient.material.save
+    else
+      ingredient.side_dish = false
+    end
+  end
+
+  def set_unit(ingredient, unit_name)
+    unit = Unit.find_by(name: unit_name)
+
+    if unit.nil?
+      unit = Unit.create(name: unit_name)
+    end
+
+    ingredient.unit = unit
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recipe
-      @recipe = Recipe.includes(:ingredients, :units, :materials, :user).find(params[:id])
+      @recipe = Recipe.includes(ingredients: [:unit, :material]).includes(:user).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
