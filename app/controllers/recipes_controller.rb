@@ -30,10 +30,12 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     @ingredients = params[:recipe][:ingredients]
     @recipe.user = current_user
-    current_user.recipes << @recipe
+    @recipe.instructions = "Standard!"
     respond_to do |format|
       if @recipe.save
+        current_user.recipes << @recipe
         add_ingredients
+        byebug
         current_user.save
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }

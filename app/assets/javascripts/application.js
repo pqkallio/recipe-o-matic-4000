@@ -1,11 +1,23 @@
 //= require jquery
 //= require jquery_ujs
 
+$(document).ready(function() {
+    $("#recipe_cooking").keyup(function() {
+        var input = $("#recipe_cooking").val();
+
+        if (input.charAt(input.length - 1) == '*') {
+            input = input.replace("*", "°");
+        }
+
+        $("#recipe_cooking").val(input);
+    });
+});
+
 function addIngredient() {
-    COUNTER++;  // initialized in recipes/new.html.erb
+    INGREDIENT_COUNTER++;  // initialized in recipes/new.html.erb
 
     var row = document.createElement("TR");
-    row.id = "i" + COUNTER;
+    row.id = "i" + INGREDIENT_COUNTER;
 
     row.appendChild(ingredientInputTd("text", "material"));
     row.appendChild(amountInputTd());
@@ -25,8 +37,8 @@ function ingredientInputTd(type, identifier) {
 function ingredientInput(tag, type, identifier) {
     var ing = document.createElement(tag);
     ing.type = type;
-    ing.name = "recipe[ingredients][i" + COUNTER + "]["+ identifier + "]";
-    ing.id = "recipe_ingredients_i" + COUNTER + "_" + identifier;
+    ing.name = "recipe[ingredients][i" + INGREDIENT_COUNTER + "]["+ identifier + "]";
+    ing.id = "recipe_ingredients_i" + INGREDIENT_COUNTER + "_" + identifier;
     return ing;
 }
 
@@ -55,23 +67,26 @@ function ingredientTdDeleteButton() {
 
 function changePortionAmount(amount) {
     var portions = Number(document.getElementById("portions").textContent);
+    var basePortions = Number(document.getElementById("base_portions").textContent);
 
     if (amount !== 0) {
         if (portions + amount <= 1000 && portions + amount > 0) {
-            changeIngredientAmounts(portions, amount);
+            changeIngredientAmounts(basePortions, portions + amount);
             portions += amount;
             document.getElementById("portions").innerHTML = portions;
         }
     }
 }
 
-function changeIngredientAmounts(portions, amount) {
+function changeIngredientAmounts(basePortions, currentPortions) {
     var ingredientAmounts = document.getElementsByName("ingredient_amount");
 
     for (var i = 0; i < ingredientAmounts.length; i++) {
-        var ingredientAmount = Number(ingredientAmounts[i].textContent);
-        var newAmount = 1.0 * ingredientAmount / portions * (portions + amount);
+        var baseAmountTag = ingredientAmounts[i].children[0];
+        var baseAmount = Number(baseAmountTag.textContent);
+        var newAmount = 1.0 * baseAmount / basePortions * currentPortions;
         newAmount = Math.round(newAmount * 100) / 100;
         ingredientAmounts[i].innerHTML = newAmount;
+        ingredientAmounts[i].appendChild(baseAmountTag);
     }
 }

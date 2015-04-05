@@ -21,9 +21,6 @@ Rails.application.routes.draw do
 
   get 'signin', to:'sessions#new'
 
-  get 'signout', to:'sessions#destroy'
-
-  # miksi ei toimi????
   delete 'signout', to:'sessions#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.

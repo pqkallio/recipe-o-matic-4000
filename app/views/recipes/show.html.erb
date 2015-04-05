@@ -14,6 +14,7 @@
 </h1>
 <h3>By: <%= link_to @recipe.user.username, @recipe.user %></h3>
 <h4>Portions:
+  <div id="base_portions" style="display:none"><%= @recipe.portions %></div>
   <span id="portions"><%= @recipe.portions %></span>
   <button type="button" onclick="changePortionAmount(-1)" class="btn btn-default" style="border-radius: 100%">-</button>
   <button type="button" onclick="changePortionAmount(1)" class="btn btn-default" style="border-radius: 100%">+</button>
@@ -35,6 +36,7 @@
         <% else %>
           <%= ingredient.amount.round(2) %>
         <% end %>
+        <div id="base_amount" style="display:none"><%= ingredient.amount %></div>
       </td>
       <td><%= ingredient.unit.name %></td>
     </tr>

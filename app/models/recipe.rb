@@ -2,6 +2,7 @@ class Recipe < ActiveRecord::Base
   has_many :ingredients, dependent: :destroy
   has_many :materials, through: :ingredients
   has_many :units, through: :ingredients
+  has_many :recipe_instruction_phases
   belongs_to :user
 
   validates :name, presence: true

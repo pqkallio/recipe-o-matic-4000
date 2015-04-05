@@ -1,7 +1,8 @@
 <meta charset="UTF-8">
 
 <script>
-  var COUNTER = 1;
+  var INGREDIENT_COUNTER = 1;
+  var INSTRUCTION_PHASE_COUNTER = 1;
 </script>
 
 <%= form_for(@recipe, method: :post) do |f| %>
@@ -14,7 +15,7 @@
     <tr>
       <td><%= f.label(:cooking, "Cooking") %></td>
       <td><%= f.text_field :cooking, placeholder: "The cooking instructions" %></td>
-      <td>(Hint: use <em>%o</em> for &#x00B0 sign)</td>
+      <td>(Hint: use * for &#x00B0 sign)</td>
     </tr>
     <tr>
       <td><%= f.label(:description, "Description") %></td>
@@ -65,7 +66,16 @@
   <br/>
   <div>
   <h3>Instructions:</h3>
-  <%= f.text_area :instructions, placeholder: "The how-to-make section" %>
+  <table id="instructions">
+    <%= f.fields_for :recipe_instructions_phases do |p| %>
+      <tr id="instructions_phase_1">
+        <%= p.fields_for :phase1 do |o| %>
+          <td><script>document.write(INSTRUCTION_PHASE_COUNTER + ".")</script></td>
+          <td><%= o.text_area :content, placeholder: "Write the description for the first phase, click the ADD-button to add more phases" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
   </div>
   <br/>
   <%= f.submit "Create!" %>
