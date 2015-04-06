@@ -56,7 +56,7 @@
         <tr>
           <%= u.fields_for :side_dish do |o| %>
               <td><%= o.text_field :material %></td>
-              <td><%= o.number_field :amount, step: 0.1, min: 0.1, max: 1000 %></td>
+              <td><%= o.number_field :amount, step: 0.1, min: 0.1, max: 1000, value: 1 %></td>
               <td><%= o.text_field :unit %></td>
           <% end %>
         </tr>
@@ -67,12 +67,17 @@
   <div>
   <h3>Instructions:</h3>
   <table id="instructions">
-    <%= f.fields_for :recipe_instructions_phases do |p| %>
-      <tr id="instructions_phase_1">
+    <%= f.fields_for :recipe_instruction_phases do |p| %>
+      <tr id="instruction_phase_1">
         <%= p.fields_for :phase1 do |o| %>
-          <td><script>document.write(INSTRUCTION_PHASE_COUNTER + ".")</script></td>
-          <td><%= o.text_area :content, placeholder: "Write the description for the first phase, click the ADD-button to add more phases" %></td>
+          <td class="recipe_instruction_phase_number"><%= o.number_field :phase, value:1, class:"phase_input_td" %><script>document.write(INSTRUCTION_PHASE_COUNTER + ".")</script></td>
+          <td><%= o.text_area :content, placeholder: "Write the description for the first phase, click the Add phase button to add more phases", class: "recipe_instruction_phase_content" %></td>
         <% end %>
+      </tr>
+      <tr>
+        <td colspan="2"><div class="btn btn-default add_phase_button_td">
+          <button type="button" onclick="addPhase()">Add phase</button>
+        </div></td>
       </tr>
     <% end %>
   </table>

@@ -34,12 +34,6 @@ RSpec.describe Recipe, :type => :model do
     expect(recipe.valid?).to eq(false)
   end
 
-  it "is not valid if instructions is missing" do
-    recipe = FactoryGirl.build(:recipe, instructions: nil)
-
-    expect(recipe.valid?).to eq(false)
-  end
-
   it "is not valid if cooking is missing" do
     recipe = FactoryGirl.build(:recipe, cooking: nil)
 

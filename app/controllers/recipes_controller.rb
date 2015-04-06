@@ -10,6 +10,7 @@ class RecipesController < ApplicationController
   # GET /recipes/1
   # GET /recipes/1.json
   def show
+    @recipe_instruction_phases = RecipeInstructionPhase.where(recipe_id: @recipe.id).order(phase: :asc)
     unless current_user.nil?
       @favorite_recipe = FavoriteRecipe.find_by(user_id: current_user.id, recipe_id: @recipe.id)
     end
@@ -29,13 +30,14 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
     @ingredients = params[:recipe][:ingredients]
+    @phases = params[:recipe][:recipe_instruction_phases]
     @recipe.user = current_user
-    @recipe.instructions = "Standard!"
+    byebug
     respond_to do |format|
       if @recipe.save
         current_user.recipes << @recipe
         add_ingredients
-        byebug
+        add_phases
         current_user.save
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
@@ -112,6 +114,16 @@ class RecipesController < ApplicationController
     end
 
     ingredient.unit = unit
+  end
+
+  def add_phases
+    @phases.each do |p, values|
+      phase = RecipeInstructionPhase.new
+      phase.phase = values["phase"]
+      phase.content = values["content"]
+      phase.recipe = @recipe
+      phase.save
+    end
   end
 
   private

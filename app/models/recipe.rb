@@ -6,7 +6,6 @@ class Recipe < ActiveRecord::Base
   belongs_to :user
 
   validates :name, presence: true
-  validates :instructions, presence: true
   validates :cooking, presence: true
   validates :portions, numericality: { only_integer: true, greater_than: 0, less_than: 1001 }, presence: true
 

@@ -44,7 +44,14 @@
 </table>
 
 <h4>Instructions:</h4>
-<div><p><%= @recipe.instructions %></p></div>
+<table class="table table-striped">
+  <% @recipe_instruction_phases.each do |i| %>
+    <tr>
+      <td><%= i.phase %>.</td>
+      <td><%= i.content %></td>
+    </tr>
+  <% end %>
+</table>
 
 <% if current_user and (current_user == @recipe.user or current_user.admin?) %>
   <%= link_to 'Edit', edit_recipe_path(@recipe) %> |

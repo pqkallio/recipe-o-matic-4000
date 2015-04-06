@@ -1,7 +1,107 @@
 {
   "RSpec": {
     "coverage": {
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/models/user.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        23,
+        22,
+        4,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/models/unit.rb": [
+        1,
+        1,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/models/material.rb": [
+        1,
+        1,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/helpers/favorite_recipes_helper.rb": [
+        1,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/helpers/ingredients_helper.rb": [
+        1,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/helpers/materials_helper.rb": [
+        1,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/helpers/recipes_helper.rb": [
+        1,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/helpers/units_helper.rb": [
+        1,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/helpers/users_helper.rb": [
+        1,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/models/ingredient.rb": [
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/models/recipe_instruction_phase.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null
+      ],
+      "/home/kallionpetri/Documents/RubyProjects/recipe_db/app/models/recipe.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null
+      ]
     },
-    "timestamp": 1428218893
+    "timestamp": 1428342279
   }
 }
