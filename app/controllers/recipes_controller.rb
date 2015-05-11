@@ -32,7 +32,6 @@ class RecipesController < ApplicationController
     @ingredients = params[:recipe][:ingredients]
     @phases = params[:recipe][:recipe_instruction_phases]
     @recipe.user = current_user
-    byebug
     respond_to do |format|
       if @recipe.save
         current_user.recipes << @recipe
@@ -74,13 +73,22 @@ class RecipesController < ApplicationController
 
   def add_ingredients
     @ingredients.each do |ing, values|
-      ingredient = Ingredient.new
+      ok = true
+      values.each do |k, v|
+        if v.nil? or v == ""
+          ok = false
+        end
+      end
 
-      set_material_amount_and_recipe(ingredient, values)
-      set_side_dishness(ingredient, ing.to_s)
-      set_unit(ingredient, values["unit"])
+      if ok
+        ingredient = Ingredient.new
 
-      ingredient.save
+        set_material_amount_and_recipe(ingredient, values)
+        set_side_dishness(ingredient, ing.to_s)
+        set_unit(ingredient, values["unit"])
+
+        ingredient.save
+      end
     end
   end
 

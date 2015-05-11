@@ -22,7 +22,7 @@ function addIngredient() {
     row.appendChild(ingredientInputTd("text", "material"));
     row.appendChild(amountInputTd());
     row.appendChild(ingredientInputTd("text", "unit"));
-    row.appendChild(ingredientTdDeleteButton());
+    row.appendChild(ingredientTdDeleteButton(row));
 
     document.getElementById("ingredients").appendChild(row);
 }
@@ -72,8 +72,9 @@ function phaseTd() {
     var phaText = document.createElement("SPAN");
     phaText.textContent = INSTRUCTION_PHASE_COUNTER + ".";
 
-    phaIn.style = "display:none;";
-    phaseTd.style = "padding-right: 100px; vertical-align: top;"
+    phaIn.style.display = "none";
+    phaseTd.style.paddingRight = "100px";
+    phaseTd.style.verticalAlign = "top";
     phaIn.value = INSTRUCTION_PHASE_COUNTER;
     phaseTd.appendChild(phaIn);
     phaseTd.appendChild(phaText);
@@ -93,7 +94,7 @@ function phaseInput(tag, type, identifier) {
     return pha;
 }
 
-function ingredientTdDeleteButton() {
+function ingredientTdDeleteButton(row) {
     var delTd = document.createElement("TD");
     var del = ingredientInput("BUTTON", "button", "delete");
 

@@ -29,16 +29,28 @@
 <table class="table table-hover">
   <% @recipe.ingredients.each do |ingredient| %>
     <tr>
-      <td><%= ingredient.material.name %></td>
-      <td name="ingredient_amount">
-        <% if ingredient.amount.round(2) == ingredient.amount.round() %>
-          <%= ingredient.amount.round() %>
-        <% else %>
-          <%= ingredient.amount.round(2) %>
-        <% end %>
-        <div id="base_amount" style="display:none"><%= ingredient.amount %></div>
-      </td>
-      <td><%= ingredient.unit.name %></td>
+      <% if ingredient.material.nil? %>
+        <td>NO NAME!</td>
+      <% else %>
+        <td><%= ingredient.material.name %></td>
+      <% end %>
+      <% if ingredient.amount.nil? %>
+        <td>NO AMOUNT!</td>
+      <% else %>
+        <td name="ingredient_amount">
+          <% if ingredient.amount.round(2) == ingredient.amount.round() %>
+            <%= ingredient.amount.round() %>
+          <% else %>
+            <%= ingredient.amount.round(2) %>
+          <% end %>
+          <div id="base_amount" style="display:none"><%= ingredient.amount %></div>
+        </td>
+      <% end %>
+      <% if ingredient.unit.nil? %>
+        <td>NO UNIT!</td>
+      <% else %>
+        <td><%= ingredient.unit.name %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>
